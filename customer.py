@@ -1,6 +1,8 @@
-veg =[]
-prices = []
-quantity = []
+veg = ["Tomato", "Potato", "Carrot", "Onion", "Cabbage"]
+
+prices = [40, 30, 50, 35, 45]
+
+quantity = [10, 20, 15, 25, 12]
 
 
 while True:
@@ -22,7 +24,7 @@ while True:
         
         elif admin_vegies in veg:
             print(f'The {admin_vegies} was already in store')
-            admin_modify = input('Do you want to modify price/qantity').lower()
+            admin_modify = input('Do you want to modify price/quantity/remove? ').lower()
 
             #Price Modification
 
@@ -30,7 +32,7 @@ while True:
                 index = veg.index(admin_vegies)
                 print(f'The current price for the {veg[index]} is {prices[index]}')
 
-                admin_modify_price = input('Do you want to (1.replace, 2.increase, 3.decrease) choose 1 or 2 or 3').lower()
+                admin_modify_price = input('Do you want to (1.replace, 2.increase, 3.decrease, 4.remove) choose 1 or 2 or 3 or 4').lower()
                 if admin_modify_price=='replace' or admin_modify_price=='1':
                     print(f'The current price for the {veg[index]} is {prices[index]}')
                     prices[index] = int(input("Enter the amount: "))
@@ -47,6 +49,18 @@ while True:
                     price_decrease = int(input("Enter the decrease amount: "))                    
                     prices[index] = prices[index] - price_decrease
                     print(f'The current price for the {veg[index]} is changed to {prices[index]}')
+                
+                #remove vegies from store
+                
+            elif admin_modify_price=='remove' or admin_modify_price=='4':
+                index = veg.index(admin_vegies)
+                print(f'The current price for the {veg[index]} is {prices[index]}')
+                remove_confirm = input(f'Are you sure you want to remove {veg[index]} from the store? (yes/no): ').lower()
+                if remove_confirm == 'yes':
+                    veg.pop(index)
+                    prices.pop(index)
+                    quantity.pop(index)
+                    print(f'{admin_vegies} has been removed from the store.')
 
             #Quantity modification
             if admin_modify == 'quantity':
@@ -72,10 +86,13 @@ while True:
                     print(f'The current quantity for the {veg[index]} is changed to {quantity[index]}')
 
     elif admin_choice==2:
+        print("THE VEGETABLES IN STORE ARE:")
         for items in zip(veg,prices,quantity):
-            print(items)
+            print(f'Vegetable: {items[0]:<10}, Price: {items[1]:<10}, Quantity: {items[2]:<10}')
     elif admin_choice == 3:
         print("You just logout")
         break
     else:
         print("Invalid choice")
+
+print("Thank you for using the system")
